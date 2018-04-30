@@ -94,6 +94,7 @@ void build_min_heap(array<int, original_size>& nums, int size = original_size){
 }
 
 void heap_sort(array<int, original_size>& nums, int size = original_size){
+    build_max_heap(nums);
     while(size != 0){
         swap(nums, 0, --size);
         max_heapify(nums, 0, size);
@@ -105,15 +106,15 @@ int main() {
     array<int, original_size> nums = {5, 3, 2, -15, 0, -5, 12, 7, 10, 9};
     cout << "Before    : ";
     PrintArray(nums);
-    
-    // MIN HEAP
-    build_min_heap(nums);
-    cout << "Min_heap  : ";
-    PrintArray(nums);
-    
+
     // MAX HEAP
     build_max_heap(nums);
     cout << "Max_heap  : ";
+    PrintArray(nums);
+        
+    // MIN HEAP
+    build_min_heap(nums);
+    cout << "Min_heap  : ";
     PrintArray(nums);
 
     // HEAP SORT IN PLACE
