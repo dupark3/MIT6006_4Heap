@@ -50,11 +50,11 @@ void max_heapify(array<int, original_size>& nums, int n, int size = original_siz
     if (right_child_index < size)
         right_child = nums[right_child_index];
 
-    if (nums[n] < left_child && left_child > right_child){
+    if (left_child > nums[n] && left_child > right_child){
         swap(nums, n, left_child_index);
         max_heapify(nums, left_child_index, size);
     }
-    if (nums[n] < right_child){
+    if (right_child > nums[n]){
         swap(nums, n, right_child_index);
         max_heapify(nums, right_child_index, size);
     }
@@ -72,11 +72,11 @@ void min_heapify(array<int, original_size>& nums, int n, int size = original_siz
     if (right_child_index < size)
         right_child = nums[right_child_index];
 
-    if (nums[n] > left_child && left_child < right_child){
+    if (left_child < nums[n] && left_child < right_child){
         swap(nums, n, left_child_index);
         min_heapify(nums, left_child_index, size);
     }
-    if (nums[n] > right_child){
+    if (right_child < nums[n]){
         swap(nums, n, right_child_index);
         min_heapify(nums, right_child_index, size);
     }
@@ -111,7 +111,7 @@ int main() {
     build_max_heap(nums);
     cout << "Max_heap  : ";
     PrintArray(nums);
-        
+
     // MIN HEAP
     build_min_heap(nums);
     cout << "Min_heap  : ";
