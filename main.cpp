@@ -21,8 +21,9 @@ for n > 0
 
 using namespace std;
 
-template <size_t size>
-void PrintArray(const array<int, size>& arr){
+const int original_size = 10;
+
+void PrintArray(const array<int, original_size>& arr, int size = original_size){
     /*
     Print with approximate tree format
     cout << "             " << arr[0] << endl
@@ -38,15 +39,13 @@ void PrintArray(const array<int, size>& arr){
     cout << '}' << endl;
 }
 
-template <size_t size>
-void swap(array<int, size>& nums, int first_index, int second_index){
+void swap(array<int, original_size>& nums, int first_index, int second_index){
     int temp = nums[first_index];
     nums[first_index] = nums[second_index];
     nums[second_index] = temp;
 }
 
-template <size_t size>
-void max_heapify(array<int, size>& nums, int n){
+void max_heapify(array<int, original_size>& nums, int n, int size = original_size){
     int left_child_index = 2 * n + 1;
     int right_child_index = 2 * n + 2;
 
@@ -60,47 +59,77 @@ void max_heapify(array<int, size>& nums, int n){
 
     if (nums[n] < left_child && left_child > right_child){
         swap(nums, n, left_child_index);
-        max_heapify(nums, left_child_index);
+        max_heapify(nums, left_child_index, size);
     }
     if (nums[n] < right_child){
         swap(nums, n, right_child_index);
-        max_heapify(nums, right_child_index);
+        max_heapify(nums, right_child_index, size);
     }
 }
 
-template <size_t size>
-void build_max_heap(array<int, size>& nums){
-    int n = size;
+void min_heapify(array<int, original_size>& nums, int n, int size = original_size){
+    int left_child_index = 2 * n + 1;
+    int right_child_index = 2 * n + 2;
 
+    int left_child = INT_MAX;
+    int right_child = INT_MAX;
+
+    if (left_child_index < size)
+        left_child = nums[left_child_index];
+    if (right_child_index < size)
+        right_child = nums[right_child_index];
+
+    if (nums[n] > left_child && left_child < right_child){
+        swap(nums, n, left_child_index);
+        min_heapify(nums, left_child_index, size);
+    }
+    if (nums[n] > right_child){
+        swap(nums, n, right_child_index);
+        min_heapify(nums, right_child_index, size);
+    }
+}
+
+void build_max_heap(array<int, original_size>& nums, int size = original_size){
     // start at the parent of the last element and end at the root
     for(int i = (size - 1) / 2; i >= 0; --i)
         max_heapify(nums, i);
 }
 
-template <size_t size>
-int extract_max(array<int, size>& nums, int n){
-
-    return nums[0];
+void build_min_heap(array<int, original_size>& nums, int size = original_size){
+    for(int i = (size - 1) / 2; i >= 0; --i)
+        min_heapify(nums, i);
 }
 
-template <size_t size>
-vector<int> heap_sort(array<int, size>& nums){
-    int n = size;
-    vector<int> sorted_nums;
-    while (n >= 0)
-        sorted_nums.push_back(extract_max(nums, n));
+
+
+void heap_sort(array<int, original_size>& nums, int size = original_size){
+    while(size != 0){
+        swap(nums, 0, --size);
+        min_heapify(nums, 0, size);
+    }
 }
 
 int main() {
     const int size = 10;
-    array<int, size> nums = {5, 3, 2, -15, 0, -5, 12, 7, 10, 9};
     
-    cout << "Before: " << endl;
+    // BEFORE
+    array<int, size> nums = {5, 3, 2, -15, 0, -5, 12, 7, 10, 9};
+    cout << "Before   : " << endl;
     PrintArray(nums);
 
+    // MAX HEAP
     build_max_heap(nums);
+    cout << "Max_heap : " << endl;
+    PrintArray(nums);
 
-    cout << "After : " << endl;
+    // MIN HEAP
+    build_min_heap(nums);
+    cout << "Min_heap : " << endl;
+    PrintArray(nums);
+
+    // HEAP SORT
+    heap_sort(nums);
+    cout << "Sorted: " << endl;
     PrintArray(nums);
 
     return 0;
