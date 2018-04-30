@@ -1,42 +1,35 @@
-// MAX HEAPIFY IMPLEMENTATION
+/*
 
-/* PSEUDOCODE: 
-           5
-       3        2
-   -15    0  -5  12
- 7  -10 9
+MAX HEAP, MIN HEAP, and HEAP SORT
 
+Array represented in almost complete binary tree form:
 for n > 0
-(n-1)/2 = parent
-2n+1 = left child
-2n+2 = right child
+    (n-1)/2 = parent
+    2n+1 = left child
+    2n+2 = right child
+
+10 elements shown as a heap:
+          0
+      1       2
+    3   4   5   6
+   7 8 9
 
 */
 
 #include <array>
-#include <climits> // INT_MIN
+#include <climits> // INT_MIN, INT_MAX
 #include <cstddef> // size_t
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
 const int original_size = 10;
 
 void PrintArray(const array<int, original_size>& arr, int size = original_size){
-    /*
-    Print with approximate tree format
-    cout << "             " << arr[0] << endl
-         << "         " << arr[1] << "      " << arr[2] << endl
-         << "     " << arr[3] << "    " << arr[4] << "   " << arr[5] << "  " << arr[6] << endl
-         << "   " << arr[7] << "  " << arr[8] << "   " << arr[9] << endl;
-    */
-    
-    //Print without format
     cout << '{' << arr[0];
     for(size_t i = 1; i!= size; ++i)
         cout << ", " << arr[i];
-    cout << '}' << endl;
+    cout << '}' << endl;   
 }
 
 void swap(array<int, original_size>& nums, int first_index, int second_index){
@@ -100,8 +93,6 @@ void build_min_heap(array<int, original_size>& nums, int size = original_size){
         min_heapify(nums, i);
 }
 
-
-
 void heap_sort(array<int, original_size>& nums, int size = original_size){
     while(size != 0){
         swap(nums, 0, --size);
@@ -112,24 +103,24 @@ void heap_sort(array<int, original_size>& nums, int size = original_size){
 int main() {
     const int size = 10;
     
-    // BEFORE
+    // ORIGINAL
     array<int, size> nums = {5, 3, 2, -15, 0, -5, 12, 7, 10, 9};
-    cout << "Before   : " << endl;
+    cout << "Before   : ";
     PrintArray(nums);
 
     // MAX HEAP
     build_max_heap(nums);
-    cout << "Max_heap : " << endl;
+    cout << "Max_heap : ";
     PrintArray(nums);
 
     // MIN HEAP
     build_min_heap(nums);
-    cout << "Min_heap : " << endl;
+    cout << "Min_heap : ";
     PrintArray(nums);
 
-    // HEAP SORT
+    // HEAP SORT IN PLACE
     heap_sort(nums);
-    cout << "Sorted: " << endl;
+    cout << "Sorted   : ";
     PrintArray(nums);
 
     return 0;
