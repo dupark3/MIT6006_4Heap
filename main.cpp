@@ -17,32 +17,35 @@ for n > 0
 #include <climits> // INT_MIN
 #include <cstddef> // size_t
 #include <iostream>
-
-static const int size = 10;
+#include <vector>
 
 using namespace std;
 
+template <size_t size>
 void PrintArray(const array<int, size>& arr){
-    // Print with approximate tree format
+    /*
+    Print with approximate tree format
     cout << "             " << arr[0] << endl
          << "         " << arr[1] << "      " << arr[2] << endl
          << "     " << arr[3] << "    " << arr[4] << "   " << arr[5] << "  " << arr[6] << endl
          << "   " << arr[7] << "  " << arr[8] << "   " << arr[9] << endl;
+    */
     
-    /* Print without format
+    //Print without format
     cout << '{' << arr[0];
     for(size_t i = 1; i!= size; ++i)
         cout << ", " << arr[i];
     cout << '}' << endl;
-    */
 }
 
+template <size_t size>
 void swap(array<int, size>& nums, int first_index, int second_index){
     int temp = nums[first_index];
     nums[first_index] = nums[second_index];
     nums[second_index] = temp;
 }
 
+template <size_t size>
 void max_heapify(array<int, size>& nums, int n){
     int left_child_index = 2 * n + 1;
     int right_child_index = 2 * n + 2;
@@ -65,6 +68,7 @@ void max_heapify(array<int, size>& nums, int n){
     }
 }
 
+template <size_t size>
 void build_max_heap(array<int, size>& nums){
     int n = size;
 
@@ -73,8 +77,22 @@ void build_max_heap(array<int, size>& nums){
         max_heapify(nums, i);
 }
 
+template <size_t size>
+int extract_max(array<int, size>& nums, int n){
+
+    return nums[0];
+}
+
+template <size_t size>
+vector<int> heap_sort(array<int, size>& nums){
+    int n = size;
+    vector<int> sorted_nums;
+    while (n >= 0)
+        sorted_nums.push_back(extract_max(nums, n));
+}
 
 int main() {
+    const int size = 10;
     array<int, size> nums = {5, 3, 2, -15, 0, -5, 12, 7, 10, 9};
     
     cout << "Before: " << endl;
