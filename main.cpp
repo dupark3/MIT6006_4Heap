@@ -3,12 +3,13 @@
 MAX HEAP, MIN HEAP, and HEAP SORT
 
 Array represented in almost complete binary tree form:
-for n > 0
-    (n-1)/2 = parent
-    2n+1 = left child
-    2n+2 = right child
 
-10 elements shown as a heap:
+if n is the index of a node, for n > 0, 
+    (n-1)/2 = parent index
+    2n+1 = left child index
+    2n+2 = right child index
+
+10 element indexes visualized as a heap:
           0
       1       2
     3   4   5   6
@@ -16,10 +17,10 @@ for n > 0
 
 */
 
-#include <array>
+#include <array> // array<int, size>
 #include <climits> // INT_MIN, INT_MAX
 #include <cstddef> // size_t
-#include <iostream>
+#include <iostream> // cout
 
 using namespace std;
 
